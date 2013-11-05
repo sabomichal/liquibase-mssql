@@ -1,0 +1,117 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>org.liquibase.ext</groupId>
+    <artifactId>liquibase-mssql</artifactId>
+    <name>Liquibase MS SQL Server Extensions</name>
+    <version>1.3.0</version>
+    <dependencies>
+        <dependency>
+            <groupId>org.liquibase</groupId>
+            <artifactId>liquibase-core</artifactId>
+            <version>3.0.7</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.1</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+    <description>Liquibase extensions for MS SQL Server.</description>
+
+    <issueManagement>
+        <url>http://liquibase.jira.com/browse/CONTRIB</url>
+    </issueManagement>
+
+    <licenses>
+       <license>
+           <url>http://www.apache.org/licenses/LICENSE-2.0</url>
+           <name>Apache License, Version 2.0</name>
+       </license>
+   </licenses>
+    
+    <scm>
+        <url>https://liquibase.jira.com/svn/CONTRIB/trunk/mssql-extensions/trunk</url>
+        <developerConnection>scm:svn:https://liquibase.jira.com/svn/CONTRIB/trunk/mssql-extensions/trunk
+        </developerConnection>
+    </scm>
+
+    <developers>
+        <developer>
+            <id>nvoxland</id>
+            <name>Nathan Voxland</name>
+            <email>nathan@voxland.net</email>
+            <url>http://nathan.voxland.net</url>
+            <organizationUrl>http://nathan.voxland.net/</organizationUrl>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+            <timezone>-6</timezone>
+        </developer>
+        <developer>
+            <id>msabo</id>
+            <name>Michal Sabo</name>
+            <email>sabo.michal@gmail.com</email>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
+
+    <build>
+        <sourceDirectory>src/java</sourceDirectory>
+        <testSourceDirectory>src/java-test</testSourceDirectory>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-compiler-plugin</artifactId>
+                    <configuration>
+                        <source>1.5</source>
+                        <target>1.5</target>
+                        <optimize>true</optimize>
+                        <debug>true</debug>
+                    </configuration>
+                </plugin>
+
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.0</version>
+                    <configuration>
+                        <mavenExecutorId>forked-path</mavenExecutorId>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
+    </build>
+    
+    <profiles>
+        <profile>
+            <id>release-sign-artifacts</id>
+            <activation>
+                <property>
+                    <name>performRelease</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-gpg-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>sign-artifacts</id>
+                                <phase>verify</phase>
+                                <goals>
+                                    <goal>sign</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
