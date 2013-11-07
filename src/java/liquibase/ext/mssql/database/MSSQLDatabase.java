@@ -6,6 +6,12 @@ import liquibase.executor.ExecutorService;
 import liquibase.ext.mssql.sqlgenerator.DropStoredProcedureStatement;
 
 public class MSSQLDatabase extends liquibase.database.core.MSSQLDatabase {
+    
+    @Override
+    public int getPriority() {
+        return PRIORITY_DATABASE;
+    }
+    
     @Override
     public void dropDatabaseObjects(CatalogAndSchema schemaToDrop) throws LiquibaseException {
         super.dropDatabaseObjects(schemaToDrop);
