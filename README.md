@@ -25,7 +25,7 @@ Extends insert data changeset with identityInsertEnabled property.
 
 #### New Properties
 
-identityInsertEnabled - true/false - When set to true, allows explicit values to be inserted into the identity column of a table.
+identityInsertEnabled - true/false - when set to true, allows explicit values to be inserted into the identity column of a table.
 
 #### Sample
 
