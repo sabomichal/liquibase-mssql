@@ -17,8 +17,22 @@ To use, simply include the liquibase-mssql.jar file in your classpath. And add t
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
 Available Commands/Tags
+-----------------------
 
-Change: ‘insert’
+### Change: ‘insert’
 
-Inserts data into an existing table
+Extends insert data changeset with identityInsertEnabled property.
+
+#### New Properties
+
+identityInsertEnabled - true/false - When set to true, allows explicit values to be inserted into the identity column of a table.
+
+#### Sample
+
+
+    <ext:insert tableName="person"
+        identityInsertEnabled="true">
+        <column .../>
+        ...
+    </ext:insert>
 
