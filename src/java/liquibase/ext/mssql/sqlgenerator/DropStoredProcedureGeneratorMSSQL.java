@@ -3,6 +3,7 @@ package liquibase.ext.mssql.sqlgenerator;
 import liquibase.database.Database;
 import liquibase.database.core.MSSQLDatabase;
 import liquibase.exception.ValidationErrors;
+import liquibase.ext.mssql.statement.DropStoredProcedureStatement;
 import liquibase.sql.Sql;
 import liquibase.sql.UnparsedSql;
 import liquibase.sqlgenerator.SqlGeneratorChain;

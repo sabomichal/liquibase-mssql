@@ -3,7 +3,7 @@ package liquibase.ext.mssql.database;
 import liquibase.CatalogAndSchema;
 import liquibase.exception.LiquibaseException;
 import liquibase.executor.ExecutorService;
-import liquibase.ext.mssql.sqlgenerator.DropStoredProcedureStatement;
+import liquibase.ext.mssql.statement.DropStoredProcedureStatement;
 
 public class MSSQLDatabase extends liquibase.database.core.MSSQLDatabase {
     

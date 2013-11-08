@@ -1,4 +1,4 @@
-package liquibase.ext.mssql.sqlgenerator;
+package liquibase.ext.mssql.statement;
 
 import liquibase.statement.AbstractSqlStatement;
 

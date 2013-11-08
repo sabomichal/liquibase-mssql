@@ -1,14 +1,19 @@
 package liquibase.ext.mssql.sqlgenerator;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import liquibase.database.Database;
 import liquibase.database.core.MSSQLDatabase;
 import liquibase.exception.ValidationErrors;
+import liquibase.ext.mssql.statement.InsertStatementMSSQL;
 import liquibase.sql.Sql;
 import liquibase.sql.UnparsedSql;
 import liquibase.sqlgenerator.SqlGeneratorChain;
 import liquibase.statement.core.InsertStatement;
-
-import java.util.*;
 
 public class InsertGenerator extends liquibase.sqlgenerator.core.InsertGenerator {
     public static final String IF_TABLE_HAS_IDENTITY_STATEMENT =
@@ -35,6 +40,13 @@ public class InsertGenerator extends liquibase.sqlgenerator.core.InsertGenerator
 
     @Override
     public Sql[] generateSql(InsertStatement statement, Database database, SqlGeneratorChain sqlGeneratorChain) {
+        Boolean identityInsertEnabled = false;
+        if (statement instanceof InsertStatementMSSQL) {
+            identityInsertEnabled = ((InsertStatementMSSQL)statement).getIdentityInsertEnabled();
+        }
+        if (identityInsertEnabled == null || !identityInsertEnabled) {
+            return super.generateSql(statement, database, sqlGeneratorChain);
+        }
         String tableName = database.escapeTableName(statement.getCatalogName(), statement.getSchemaName(), statement.getTableName());
         String enableIdentityInsert = "SET IDENTITY_INSERT " + tableName + " ON";
         String disableIdentityInsert = "SET IDENTITY_INSERT " + tableName + " OFF";

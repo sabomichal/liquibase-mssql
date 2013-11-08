@@ -1,9 +1,10 @@
-package liquibase.ext.mssql.sqlgenerator;
+package liquibase.ext.mssql.change;
 
 import liquibase.change.AbstractChange;
 import liquibase.change.ChangeMetaData;
 import liquibase.change.DatabaseChange;
 import liquibase.database.Database;
+import liquibase.ext.mssql.statement.DropStoredProcedureStatement;
 import liquibase.statement.SqlStatement;
 
 @DatabaseChange(name="dropProcedures", description = "Drop Stored Procedures", priority = ChangeMetaData.PRIORITY_DEFAULT)
@@ -17,7 +18,7 @@ public class DropStoredProcedureChange extends AbstractChange {
     }
 
     public String getConfirmationMessage() {
-        return (new StringBuilder()).append("Materialized view ").append("stored procedure name").append(" has been droped").toString();
+        return (new StringBuilder()).append("Stored procedures has been droped").toString();
     }
 
     public SqlStatement[] generateStatements(Database database) {

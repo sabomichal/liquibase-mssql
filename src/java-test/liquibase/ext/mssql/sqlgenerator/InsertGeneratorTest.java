@@ -1,6 +1,7 @@
 package liquibase.ext.mssql.sqlgenerator;
 
 import liquibase.database.core.MSSQLDatabase;
+import liquibase.ext.mssql.statement.InsertStatementMSSQL;
 import liquibase.sql.Sql;
 import liquibase.sqlgenerator.SqlGeneratorFactory;
 import liquibase.statement.core.InsertStatement;
@@ -15,6 +16,8 @@ public class InsertGeneratorTest {
         InsertStatement statement = new InsertStatement(null, null, "TABLE_NAME");
         statement.addColumnValue("id", 1);
         statement.addColumnValue("name", "asdf");
+        
+        statement = new InsertStatementMSSQL(statement, true);
 
         Sql[] sql = SqlGeneratorFactory.getInstance().generateSql(statement, new MSSQLDatabase());
         assertEquals(3, sql.length);
