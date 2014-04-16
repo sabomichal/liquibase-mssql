@@ -17,23 +17,29 @@ To use, simply include the liquibase-mssql.jar file in your classpath. And add t
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
 
-Available Commands/Tags
+Available changes/refactorings
 -----------------------
 
 ### Change: ‘insert’
 
 Extends insert data changeset with identityInsertEnabled property.
 
-#### New Properties
+#### New Attributes
 
-identityInsertEnabled - true/false - when set to true, allows explicit values to be inserted into the identity column of a table.
+*identityInsertEnabled* - boolean - when set to true, allows explicit values to be inserted into the identity column of a table.
 
 #### Sample
 
-
-    <ext:insert tableName="person"
-        identityInsertEnabled="true">
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    
+    <ext:insert tableName="person" identityInsertEnabled="true">
         <column .../>
         ...
     </ext:insert>
-
+    
+</databaseChangeLog>
