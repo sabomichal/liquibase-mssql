@@ -40,8 +40,8 @@ Extends insert data changeset with identityInsertEnabled property.
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
     
     <ext:insert tableName="person" identityInsertEnabled="true">
-        <column .../>
-        ...
+        <column name="id" valuenumeric="100" />
+        <column name="some" value="thing" />
     </ext:insert>
     
 </databaseChangeLog>
