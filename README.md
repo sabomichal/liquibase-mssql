@@ -6,7 +6,8 @@ Fork of Liquibase MS SqlServer Extensions extension - https://liquibase.jira.com
 This fork adds following functionality:
 - it is Liquibase 3.x ready
 - supports stored procedures drop
-- extends *insert* change/refactoring to support identity column inserts
+- wraps all calls to *loadData* with "set identity insert on" and "set identity insert off"
+- wraps flagged calls to *insert* with "set identity insert on" and "set identity insert off" - see sample
 
 Usage
 -----
