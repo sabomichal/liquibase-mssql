@@ -39,9 +39,17 @@ Extends insert data changeset with identityInsertEnabled property.
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
     
+    <createTable tableName="person"
+        <column name="id" autoIncrement="true" type="BIGINT">
+				<constraints nullable="false" primaryKey="true"
+					primaryKeyName="pk_person_id" />
+			</column>
+        <column name="address" type="varchar(255)"/>
+    </createTable>
+    
     <ext:insert tableName="person" identityInsertEnabled="true">
         <column name="id" valuenumeric="100" />
-        <column name="some" value="thing" />
+        <column name="address" value="thing" />
     </ext:insert>
     
 </databaseChangeLog>
