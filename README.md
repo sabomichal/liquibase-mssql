@@ -41,9 +41,8 @@ Extends insert data changeset with identityInsertEnabled property.
     
     <createTable tableName="person"
         <column name="id" autoIncrement="true" type="BIGINT">
-				<constraints nullable="false" primaryKey="true"
-					primaryKeyName="pk_person_id" />
-			</column>
+		<constraints nullable="false" primaryKey="true" primaryKeyName="pk_person_id"/>
+	</column>
         <column name="address" type="varchar(255)"/>
     </createTable>
     
