@@ -3,8 +3,10 @@ liquibase-mssql
 
 Fork of Liquibase MS SqlServer Extensions extension - https://liquibase.jira.com/wiki/display/CONTRIB/MS+SqlServer+Extensions.
 
-This fork is Liquibase 3.x ready and adds support for stored procedures drop.
-Support for SQL Server unicode strings with a prefix N as described here http://support.microsoft.com/kb/239530/en-us is no longer included since it is fixed in liquibase version 3.1.1.
+This fork adds following functionality:
+- it is Liquibase 3.x ready
+- supports stored procedures drop
+- extends *insert* change/refactoring to support identity column inserts
 
 Usage
 -----
