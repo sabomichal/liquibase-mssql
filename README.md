@@ -10,12 +10,14 @@ Usage
 -----
 
 To use, simply include the liquibase-mssql.jar file in your classpath. And add the ext namespace to your xml root node:
+<pre>
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+</pre>
 
 Available changes/refactorings
 -----------------------
@@ -29,7 +31,7 @@ Extends insert data changeset with identityInsertEnabled property.
 *identityInsertEnabled* - boolean - when set to true, allows explicit values to be inserted into the identity column of a table.
 
 #### Sample
-
+<pre>
 <databaseChangeLog
     xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -43,3 +45,4 @@ Extends insert data changeset with identityInsertEnabled property.
     </ext:insert>
     
 </databaseChangeLog>
+</pre>
