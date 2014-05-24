@@ -25,7 +25,7 @@ public class CreateIndexGeneratorMSSQL extends CreateIndexGenerator {
   public Sql[] generateSql(CreateIndexStatement statement, Database database, SqlGeneratorChain sqlGeneratorChain) {
     if (statement instanceof CreateIndexStatementMSSQL &&
         ((CreateIndexStatementMSSQL)statement).getIncludedColumnNames() != null &&
-        !((CreateIndexStatementMSSQL)statement).getIncludedColumnNames().isEmpty()) {
+        ((CreateIndexStatementMSSQL)statement).getIncludedColumnNames().length > 0) {
       return generateMSSQLSql((CreateIndexStatementMSSQL) statement, database, sqlGeneratorChain);
     }
 
@@ -57,7 +57,15 @@ public class CreateIndexGeneratorMSSQL extends CreateIndexGenerator {
       }
     }
     buffer.append(") INCLUDE (");
-    buffer.append(statement.getIncludedColumnNames()).append(") ");
+	iterator = Arrays.asList(statement.getIncludedColumnNames()).iterator();
+	while (iterator.hasNext()) {
+		String column = iterator.next();
+		buffer.append(database.escapeColumnName(statement.getTableCatalogName(), statement.getTableSchemaName(), statement.getTableName(), column));
+		if (iterator.hasNext()) {
+			buffer.append(", ");
+		}
+	}
+    buffer.append(") ");
 
     // This block simplified, since we know we have MSSQLDatabase
     if (StringUtils.trimToNull(statement.getTablespace()) != null) {
