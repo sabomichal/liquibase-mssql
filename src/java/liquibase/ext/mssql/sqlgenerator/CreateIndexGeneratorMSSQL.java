@@ -12,9 +12,6 @@ import liquibase.util.StringUtils;
 import java.util.Arrays;
 import java.util.Iterator;
 
-/**
- * Created by twhitbeck on 5/23/2014.
- */
 public class CreateIndexGeneratorMSSQL extends CreateIndexGenerator {
   @Override
   public int getPriority() {
@@ -24,54 +21,47 @@ public class CreateIndexGeneratorMSSQL extends CreateIndexGenerator {
   @Override
   public Sql[] generateSql(CreateIndexStatement statement, Database database, SqlGeneratorChain sqlGeneratorChain) {
     if (statement instanceof CreateIndexStatementMSSQL &&
-        ((CreateIndexStatementMSSQL)statement).getIncludedColumnNames() != null &&
-        ((CreateIndexStatementMSSQL)statement).getIncludedColumnNames().length > 0) {
-      return generateMSSQLSql((CreateIndexStatementMSSQL) statement, database, sqlGeneratorChain);
+        ((CreateIndexStatementMSSQL)statement).getIncludedColumns() != null &&
+        !((CreateIndexStatementMSSQL)statement).getIncludedColumns().isEmpty()) {
+      return generateMSSQLSql((CreateIndexStatementMSSQL)statement, database, sqlGeneratorChain);
     }
 
     return super.generateSql(statement, database, sqlGeneratorChain);
   }
 
   private Sql[] generateMSSQLSql(CreateIndexStatementMSSQL statement, Database database, SqlGeneratorChain sqlGeneratorChain) {
-    StringBuffer buffer = new StringBuffer();
+    StringBuilder builder = new StringBuilder();
 
     // Basically copied from liquibase.sqlgenerator.core.CreateIndexGenerator
-    buffer.append("CREATE ");
+    builder.append("CREATE ");
     if (statement.isUnique() != null && statement.isUnique()) {
-      buffer.append("UNIQUE ");
+      builder.append("UNIQUE ");
     }
-    buffer.append("INDEX ");
+    builder.append("INDEX ");
 
     if (statement.getIndexName() != null) {
       String indexSchema = statement.getTableSchemaName();
-      buffer.append(database.escapeIndexName(statement.getTableCatalogName(), indexSchema, statement.getIndexName())).append(" ");
+      builder.append(database.escapeIndexName(statement.getTableCatalogName(), indexSchema, statement.getIndexName())).append(" ");
     }
-    buffer.append("ON ");
-    buffer.append(database.escapeTableName(statement.getTableCatalogName(), statement.getTableSchemaName(), statement.getTableName())).append("(");
+    builder.append("ON ");
+    builder.append(database.escapeTableName(statement.getTableCatalogName(), statement.getTableSchemaName(), statement.getTableName())).append("(");
     Iterator<String> iterator = Arrays.asList(statement.getColumns()).iterator();
     while (iterator.hasNext()) {
       String column = iterator.next();
-      buffer.append(database.escapeColumnName(statement.getTableCatalogName(), statement.getTableSchemaName(), statement.getTableName(), column));
+      builder.append(database.escapeColumnName(statement.getTableCatalogName(), statement.getTableSchemaName(), statement.getTableName(), column));
       if (iterator.hasNext()) {
-        buffer.append(", ");
+        builder.append(", ");
       }
     }
-    buffer.append(") INCLUDE (");
-	iterator = Arrays.asList(statement.getIncludedColumnNames()).iterator();
-	while (iterator.hasNext()) {
-		String column = iterator.next();
-		buffer.append(database.escapeColumnName(statement.getTableCatalogName(), statement.getTableSchemaName(), statement.getTableName(), column));
-		if (iterator.hasNext()) {
-			buffer.append(", ");
-		}
-	}
-    buffer.append(") ");
+    builder.append(") INCLUDE (");
+    builder.append(database.escapeColumnNameList(statement.getIncludedColumns()));
+    builder.append(") ");
 
     // This block simplified, since we know we have MSSQLDatabase
     if (StringUtils.trimToNull(statement.getTablespace()) != null) {
-      buffer.append(" ON ").append(statement.getTablespace());
+      builder.append(" ON ").append(statement.getTablespace());
     }
 
-    return new Sql[]{new UnparsedSql(buffer.toString(), getAffectedIndex(statement))};
+    return new Sql[]{new UnparsedSql(builder.toString(), getAffectedIndex(statement))};
   }
 }
