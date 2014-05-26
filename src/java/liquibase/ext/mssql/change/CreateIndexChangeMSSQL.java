@@ -16,13 +16,16 @@ import java.util.List;
  */
 @DatabaseChange(name="createIndex", description = "Creates an index on an existing column or set of columns.", priority = ChangeMetaData.PRIORITY_DATABASE, appliesTo = "index")
 public class CreateIndexChangeMSSQL extends CreateIndexChange {
-  private String includedColumnNames;
+  private List<String> includedColumnNames;
 
-  public String getIncludedColumnNames() {
-    return includedColumnNames;
+  public List<String> getIncludedColumnNames() {
+	  if (includedColumnNames == null) {
+		  return new ArrayList<String>();
+	  }
+	  return includedColumnNames;
   }
 
-  public void setIncludedColumnNames(String includedColumnNames) {
+  public void setIncludedColumnNames(List<String> includedColumnNames) {
     this.includedColumnNames = includedColumnNames;
   }
 
@@ -33,7 +36,7 @@ public class CreateIndexChangeMSSQL extends CreateIndexChange {
     List<SqlStatement> extendedStatements = new ArrayList<SqlStatement>(statements.length);
     for (SqlStatement statement : statements) {
       if (statement instanceof CreateIndexStatement) {
-        extendedStatements.add(new CreateIndexStatementMSSQL((CreateIndexStatement)statement, includedColumnNames));
+        extendedStatements.add(new CreateIndexStatementMSSQL((CreateIndexStatement)statement, includedColumnNames.toArray(new String[getIncludedColumnNames().size()])));
       } else {
         extendedStatements.add(statement);
       }
