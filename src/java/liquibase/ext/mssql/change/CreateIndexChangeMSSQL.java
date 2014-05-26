@@ -11,19 +11,16 @@ import liquibase.statement.core.CreateIndexStatement;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by twhitbeck on 5/23/2014.
- */
 @DatabaseChange(name = "createIndex", description = "Creates an index on an existing column or set of columns.", priority = ChangeMetaData.PRIORITY_DATABASE, appliesTo = "index")
 public class CreateIndexChangeMSSQL extends CreateIndexChange {
-  private String includedColumnNames;
+  private String includedColumns;
 
-  public String getIncludedColumnNames() {
-    return includedColumnNames;
+  public String getIncludedColumns() {
+    return includedColumns;
   }
 
-  public void setIncludedColumnNames(String includedColumnNames) {
-    this.includedColumnNames = includedColumnNames;
+  public void setIncludedColumns(String includedColumns) {
+    this.includedColumns = includedColumns;
   }
 
   @Override
@@ -33,7 +30,7 @@ public class CreateIndexChangeMSSQL extends CreateIndexChange {
     List<SqlStatement> extendedStatements = new ArrayList<SqlStatement>(statements.length);
     for (SqlStatement statement : statements) {
       if (statement instanceof CreateIndexStatement) {
-        extendedStatements.add(new CreateIndexStatementMSSQL((CreateIndexStatement)statement, includedColumnNames));
+        extendedStatements.add(new CreateIndexStatementMSSQL((CreateIndexStatement)statement, includedColumns));
       } else {
         extendedStatements.add(statement);
       }
