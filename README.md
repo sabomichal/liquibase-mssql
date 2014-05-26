@@ -57,7 +57,7 @@ Extends insert data changeset with identityInsertEnabled property.
 </databaseChangeLog>
 ```
 
-## Change: 'createIndex'
+### Change: 'createIndex'
 
 Extends create index change with includedColumns property
 
