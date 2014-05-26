@@ -56,3 +56,20 @@ Extends insert data changeset with identityInsertEnabled property.
 
 </databaseChangeLog>
 ```
+
+## Change: 'createIndex'
+
+Extends create index change with includedColumns property
+
+#### New attributes
+
+*includedColumns* - string - columns to be included in index (comma separated if multiple)
+
+#### Sample
+```xml
+...
+<ext:createIndex indexName="IDX_first_name" tableName="person" includedColumns="id, last_name, dob">
+  <column name="first_name" />
+</ext:createIndex>
+...
+```
