@@ -1,5 +1,6 @@
 package liquibase.ext.mssql.sqlgenerator;
 
+import liquibase.change.AddColumnConfig;
 import liquibase.database.Database;
 import liquibase.ext.mssql.statement.CreateIndexStatementMSSQL;
 import liquibase.sql.Sql;
@@ -45,10 +46,10 @@ public class CreateIndexGeneratorMSSQL extends CreateIndexGenerator {
     }
     builder.append("ON ");
     builder.append(database.escapeTableName(statement.getTableCatalogName(), statement.getTableSchemaName(), statement.getTableName())).append("(");
-    Iterator<String> iterator = Arrays.asList(statement.getColumns()).iterator();
+    Iterator<AddColumnConfig> iterator = Arrays.asList(statement.getColumns()).iterator();
     while (iterator.hasNext()) {
-      String column = iterator.next();
-      builder.append(database.escapeColumnName(statement.getTableCatalogName(), statement.getTableSchemaName(), statement.getTableName(), column));
+      AddColumnConfig column = iterator.next();
+      builder.append(database.escapeColumnName(statement.getTableCatalogName(), statement.getTableSchemaName(), statement.getTableName(), column.getName()));
       if (iterator.hasNext()) {
         builder.append(", ");
       }

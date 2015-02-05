@@ -1,5 +1,6 @@
 package liquibase.ext.mssql.sqlgenerator;
 
+import liquibase.change.AddColumnConfig;
 import liquibase.database.core.MSSQLDatabase;
 import liquibase.ext.mssql.statement.CreateIndexStatementMSSQL;
 import liquibase.sql.Sql;
@@ -12,7 +13,11 @@ import static org.junit.Assert.assertEquals;
 public class IndexGeneratorTest {
     @Test
     public void integrates() {
-        CreateIndexStatement statement = new CreateIndexStatement(null, null, null, "TABLE_NAME", true, null, "id", "name");
+        final AddColumnConfig firstColumnConfig = new AddColumnConfig();
+        firstColumnConfig.setName("id");
+        final AddColumnConfig secondColumnConfig = new AddColumnConfig();
+        secondColumnConfig.setName("name");
+        CreateIndexStatement statement = new CreateIndexStatement(null, null, null, "TABLE_NAME", true, null, firstColumnConfig, secondColumnConfig);
 
         statement = new CreateIndexStatementMSSQL(statement, "included, includedtoo");
 
