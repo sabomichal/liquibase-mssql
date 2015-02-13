@@ -1,3 +1,5 @@
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/com.github.sabomichal/liquibase-mssql/badge.svg)](https://maven-badges.herokuapp.com/maven-central/com.github.sabomichal/liquibase-mssql)
+
 liquibase-mssql
 ===============
 
