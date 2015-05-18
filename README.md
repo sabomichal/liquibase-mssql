@@ -8,7 +8,7 @@ Fork of Liquibase MS SqlServer Extensions extension - https://liquibase.jira.com
 This fork adds following functionality:
 - it is Liquibase 3.x ready
 - supports stored procedures drop
-- wraps all calls to *loadData* with "set identity insert on" and "set identity insert off"
+- wraps flagged calls to *loadData* with "set identity insert on" and "set identity insert off" - see sample
 - wraps flagged calls to *insert* with "set identity insert on" and "set identity insert off" - see sample
 
 Usage
@@ -44,19 +44,40 @@ Extends insert data changeset with identityInsertEnabled property.
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
     
-	<createTable tableName="person">
-		<column name="id" autoIncrement="true" type="BIGINT">
-			<constraints nullable="false" primaryKey="true" primaryKeyName="pk_person_id"/>
-		</column>
-		<column name="address" type="varchar(255)"/>
-	</createTable>
+	<changeSet id="00000000000001" author="author">
 	
-	<ext:insert tableName="person" identityInsertEnabled="true">
-		<column name="id" valuenumeric="100" />
-		<column name="address" value="thing" />
-	</ext:insert>
+		<createTable tableName="person">
+			<column name="id" autoIncrement="true" type="BIGINT">
+				<constraints nullable="false" primaryKey="true" primaryKeyName="pk_person_id"/>
+			</column>
+			<column name="address" type="varchar(255)"/>
+		</createTable>
+		
+		<ext:insert tableName="person" identityInsertEnabled="true">
+			<column name="id" valuenumeric="100" />
+			<column name="address" value="thing" />
+		</ext:insert>
+		
+	</changeSet>
 
 </databaseChangeLog>
+```
+
+### Change: ‘loadData’
+
+Extends load data changeset with identityInsertEnabled property.
+
+#### New Attributes
+
+*identityInsertEnabled* - boolean - when set to true, allows explicit values to be inserted into the identity column of a table.
+
+#### Sample
+```xml
+...		
+<ext:loadData encoding="UTF-8"
+	file="classpath:config/liquibase/persons.csv" separator=";"
+	tableName="person" identityInsertEnabled="true" />
+...
 ```
 
 ### Change: 'createIndex'
