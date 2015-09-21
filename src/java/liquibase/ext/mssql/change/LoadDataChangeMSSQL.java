@@ -10,7 +10,7 @@ import liquibase.ext.mssql.statement.InsertStatementMSSQL;
 import liquibase.statement.SqlStatement;
 import liquibase.statement.core.InsertStatement;
 
-@DatabaseChange(name = "loadData", description = "Load Data", priority = ChangeMetaData.PRIORITY_DEFAULT, appliesTo = "table")
+@DatabaseChange(name = "loadData", description = "Load Data", priority = ChangeMetaData.PRIORITY_DATABASE, appliesTo = "table")
 public class LoadDataChangeMSSQL extends liquibase.change.core.LoadDataChange {
     private Boolean identityInsertEnabled;
 
