@@ -16,13 +16,9 @@ import liquibase.sqlgenerator.SqlGeneratorChain;
 import liquibase.statement.core.InsertStatement;
 
 public class InsertGenerator extends liquibase.sqlgenerator.core.InsertGenerator {
-    public static final String IF_TABLE_HAS_IDENTITY_STATEMENT =
-            "IF EXISTS(select TABLE_NAME\n" +
-            "            from INFORMATION_SCHEMA.COLUMNS\n" +
-            "           where TABLE_SCHEMA = '${schemaName}'\n" +
-            "             and COLUMNPROPERTY(object_id(TABLE_SCHEMA + '.' + TABLE_NAME), COLUMN_NAME, 'IsIdentity') = 1\n" +
-            "             and TABLE_NAME='${tableName}')\n" +
-            "\t${then}\n";
+    public static final String IF_TABLE_HAS_IDENTITY_STATEMENT = "IF ((select objectproperty(\n"
+                    + "            object_id(N'${schemaName}.${tableName}'),\n"
+                    + "           'TableHasIdentity')) = 1)\n" + "\t${then}\n";
 
     @Override
     public int getPriority() {
