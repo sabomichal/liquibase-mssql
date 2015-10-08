@@ -9,13 +9,14 @@ import java.util.Map;
 import liquibase.database.Database;
 import liquibase.database.core.MSSQLDatabase;
 import liquibase.exception.ValidationErrors;
-import liquibase.ext.mssql.statement.InsertStatementMSSQL;
+import liquibase.ext.mssql.statement.InsertSetStatementMSSQL;
 import liquibase.sql.Sql;
 import liquibase.sql.UnparsedSql;
 import liquibase.sqlgenerator.SqlGeneratorChain;
+import liquibase.statement.core.InsertSetStatement;
 import liquibase.statement.core.InsertStatement;
 
-public class InsertGenerator extends liquibase.sqlgenerator.core.InsertGenerator {
+public class InsertSetGenerator extends liquibase.sqlgenerator.core.InsertSetGenerator {
     public static final String IF_TABLE_HAS_IDENTITY_STATEMENT = "IF ((select objectproperty(\n"
                     + "            object_id(N'${schemaName}.${tableName}'),\n"
                     + "           'TableHasIdentity')) = 1)\n" + "\t${then}\n";
@@ -29,24 +30,28 @@ public class InsertGenerator extends liquibase.sqlgenerator.core.InsertGenerator
         return database instanceof MSSQLDatabase;
     }
 
-    public ValidationErrors validate(InsertStatement statement, Database database, SqlGeneratorChain sqlGeneratorChain) {
+    public ValidationErrors validate(InsertStatement statement, Database database,
+                    SqlGeneratorChain sqlGeneratorChain) {
         return sqlGeneratorChain.validate(statement, database);
     }
 
     @Override
-    public Sql[] generateSql(InsertStatement statement, Database database, SqlGeneratorChain sqlGeneratorChain) {
+    public Sql[] generateSql(InsertSetStatement statement, Database database, SqlGeneratorChain sqlGeneratorChain) {
         Boolean identityInsertEnabled = false;
-        if (statement instanceof InsertStatementMSSQL) {
-            identityInsertEnabled = ((InsertStatementMSSQL)statement).getIdentityInsertEnabled();
+        if (statement instanceof InsertSetStatementMSSQL) {
+            identityInsertEnabled = ((InsertSetStatementMSSQL) statement).getIdentityInsertEnabled();
         }
         if (identityInsertEnabled == null || !identityInsertEnabled) {
             return super.generateSql(statement, database, sqlGeneratorChain);
         }
-        String tableName = database.escapeTableName(statement.getCatalogName(), statement.getSchemaName(), statement.getTableName());
+        String tableName = database.escapeTableName(statement.getCatalogName(), statement.getSchemaName(),
+                        statement.getTableName());
         String enableIdentityInsert = "SET IDENTITY_INSERT " + tableName + " ON";
         String disableIdentityInsert = "SET IDENTITY_INSERT " + tableName + " OFF";
-        String safelyEnableIdentityInsert = ifTableHasIdentityColumn(enableIdentityInsert, statement, database.getDefaultSchemaName());
-        String safelyDisableIdentityInsert = ifTableHasIdentityColumn(disableIdentityInsert, statement, database.getDefaultSchemaName());
+        String safelyEnableIdentityInsert = ifTableHasIdentityColumn(enableIdentityInsert, statement,
+                        database.getDefaultSchemaName());
+        String safelyDisableIdentityInsert = ifTableHasIdentityColumn(disableIdentityInsert, statement,
+                        database.getDefaultSchemaName());
 
         List<Sql> sql = new ArrayList<Sql>(Arrays.asList(sqlGeneratorChain.generateSql(statement, database)));
         sql.add(0, new UnparsedSql(safelyEnableIdentityInsert));
@@ -54,16 +59,16 @@ public class InsertGenerator extends liquibase.sqlgenerator.core.InsertGenerator
         return sql.toArray(new Sql[sql.size()]);
     }
 
-    private String ifTableHasIdentityColumn(String then, InsertStatement statement, String defaultSchemaName) {
+    private String ifTableHasIdentityColumn(String then, InsertSetStatement statement, String defaultSchemaName) {
         String tableName = statement.getTableName();
         String schemaName = statement.getSchemaName();
-	if (schemaName == null) {
-	    if (defaultSchemaName != null && !defaultSchemaName.isEmpty()) {
-		schemaName = defaultSchemaName;
-	    } else {
-		schemaName = "dbo";
-	    }
-	}
+        if (schemaName == null) {
+            if (defaultSchemaName != null && !defaultSchemaName.isEmpty()) {
+                schemaName = defaultSchemaName;
+            } else {
+                schemaName = "dbo";
+            }
+        }
 
         Map<String, String> tokens = new HashMap<String, String>();
         tokens.put("${tableName}", tableName);
