@@ -14,7 +14,6 @@ import liquibase.sql.Sql;
 import liquibase.sql.UnparsedSql;
 import liquibase.sqlgenerator.SqlGeneratorChain;
 import liquibase.statement.core.InsertSetStatement;
-import liquibase.statement.core.InsertStatement;
 
 public class InsertSetGenerator extends liquibase.sqlgenerator.core.InsertSetGenerator {
     public static final String IF_TABLE_HAS_IDENTITY_STATEMENT = "IF ((select objectproperty(\n"
@@ -26,11 +25,11 @@ public class InsertSetGenerator extends liquibase.sqlgenerator.core.InsertSetGen
         return 15;
     }
 
-    public boolean supports(InsertStatement statement, Database database) {
+    public boolean supports(InsertSetStatement statement, Database database) {
         return database instanceof MSSQLDatabase;
     }
 
-    public ValidationErrors validate(InsertStatement statement, Database database,
+    public ValidationErrors validate(InsertSetStatement statement, Database database,
                     SqlGeneratorChain sqlGeneratorChain) {
         return sqlGeneratorChain.validate(statement, database);
     }
