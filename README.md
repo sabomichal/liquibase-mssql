@@ -6,7 +6,7 @@ liquibase-mssql
 Fork of Liquibase MS SqlServer Extensions extension - https://liquibase.jira.com/wiki/display/CONTRIB/MS+SqlServer+Extensions.
 
 This fork adds following functionality:
-- it is Liquibase 3.x ready
+- it is Liquibase 3.x ready (currently supported version: 3.4.1)
 - supports stored procedures drop
 - wraps flagged calls to *loadData* with "set identity insert on" and "set identity insert off" - see sample
 - wraps flagged calls to *insert* with "set identity insert on" and "set identity insert off" - see sample
@@ -96,3 +96,7 @@ Extends create index change with includedColumns property
 </ext:createIndex>
 ...
 ```
+
+### Refactoring: Changed check if table has an identity column
+
+Changes identity column check not to use global tables to enable usage of multiple Liquibase instances simultaneously with the same database (but with different schemas)
