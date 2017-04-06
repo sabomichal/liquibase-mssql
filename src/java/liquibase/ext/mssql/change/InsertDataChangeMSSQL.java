@@ -6,7 +6,6 @@ import java.util.List;
 import liquibase.change.ChangeMetaData;
 import liquibase.change.DatabaseChange;
 import liquibase.database.Database;
-import liquibase.ext.mssql.database.MSSQLDatabase;
 import liquibase.ext.mssql.statement.InsertStatementMSSQL;
 import liquibase.statement.SqlStatement;
 import liquibase.statement.core.InsertStatement;
@@ -22,12 +21,7 @@ public class InsertDataChangeMSSQL extends liquibase.change.core.InsertDataChang
     public void setIdentityInsertEnabled(Boolean identityInsertEnabled) {
         this.identityInsertEnabled = identityInsertEnabled;
     }
-
-    @Override
-    public boolean supports(Database database) {
-        return database instanceof MSSQLDatabase;
-    }
-
+    
     @Override
     public SqlStatement[] generateStatements(Database database) {
         SqlStatement[] statements = super.generateStatements(database);

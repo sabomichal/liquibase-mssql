@@ -4,7 +4,6 @@ import liquibase.change.AbstractChange;
 import liquibase.change.ChangeMetaData;
 import liquibase.change.DatabaseChange;
 import liquibase.database.Database;
-import liquibase.ext.mssql.database.MSSQLDatabase;
 import liquibase.ext.mssql.statement.DropStoredProcedureStatement;
 import liquibase.statement.SqlStatement;
 
@@ -14,14 +13,9 @@ public class DropStoredProcedureChange extends AbstractChange {
     private String catalogName;
     private String schemaName;
     
-    public DropStoredProcedureChange(){
+    public DropStoredProcedureChange()
+    {
     }
-
-    @Override
-    public boolean supports(Database database) {
-        return database instanceof MSSQLDatabase;
-    }
-
 
     public String getConfirmationMessage() {
         return (new StringBuilder()).append("Stored procedures has been droped").toString();
