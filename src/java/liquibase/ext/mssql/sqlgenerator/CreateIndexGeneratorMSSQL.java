@@ -2,7 +2,6 @@ package liquibase.ext.mssql.sqlgenerator;
 
 import liquibase.change.AddColumnConfig;
 import liquibase.database.Database;
-import liquibase.ext.mssql.database.MSSQLDatabase;
 import liquibase.ext.mssql.statement.CreateIndexStatementMSSQL;
 import liquibase.sql.Sql;
 import liquibase.sql.UnparsedSql;
@@ -29,11 +28,6 @@ public class CreateIndexGeneratorMSSQL extends CreateIndexGenerator {
     }
 
     return super.generateSql(statement, database, sqlGeneratorChain);
-  }
-
-  @Override
-  public boolean supports(CreateIndexStatement statement, Database database) {
-    return database instanceof MSSQLDatabase;
   }
 
   private Sql[] generateMSSQLSql(CreateIndexStatementMSSQL statement, Database database, SqlGeneratorChain sqlGeneratorChain) {

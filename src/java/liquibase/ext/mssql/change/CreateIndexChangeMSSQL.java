@@ -4,7 +4,6 @@ import liquibase.change.ChangeMetaData;
 import liquibase.change.DatabaseChange;
 import liquibase.change.core.CreateIndexChange;
 import liquibase.database.Database;
-import liquibase.ext.mssql.database.MSSQLDatabase;
 import liquibase.ext.mssql.statement.CreateIndexStatementMSSQL;
 import liquibase.statement.SqlStatement;
 import liquibase.statement.core.CreateIndexStatement;
@@ -22,11 +21,6 @@ public class CreateIndexChangeMSSQL extends CreateIndexChange {
 
   public void setIncludedColumns(String includedColumns) {
     this.includedColumns = includedColumns;
-  }
-
-  @Override
-  public boolean supports(Database database) {
-    return database instanceof MSSQLDatabase;
   }
 
   @Override
