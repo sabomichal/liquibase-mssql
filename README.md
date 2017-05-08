@@ -10,6 +10,7 @@ This fork adds following functionality:
 - supports stored procedures drop
 - wraps flagged calls to *loadData* with "set identity insert on" and "set identity insert off" - see sample
 - wraps flagged calls to *insert* with "set identity insert on" and "set identity insert off" - see sample
+- adds support to createIndex for specifying included columns and fill-factors
 
 Usage
 -----
@@ -82,12 +83,13 @@ Extends load data changeset with identityInsertEnabled property.
 
 ### Change: 'createIndex'
 
-Extends create index change with includedColumns property
+Extends create index change with includedColumns and fillFactor properties
 
 #### New attributes
 
 *includedColumns* - string - columns to be included in index (comma separated if multiple)
-*fillFactor* - int - 1 to 100, specifies a percentage that indicates how full the Database Engine should make the leaf level of each index page during index creation or rebuild
+
+*fillFactor* - int (1 to 100) - specifies a percentage that indicates how full the Database Engine should make the leaf level of each index page during index creation or rebuild
 
 #### Sample
 ```xml
