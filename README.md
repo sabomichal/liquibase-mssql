@@ -10,7 +10,8 @@ This fork adds following functionality:
 - supports stored procedures drop
 - wraps flagged calls to *loadData* with "set identity insert on" and "set identity insert off" - see sample
 - wraps flagged calls to *insert* with "set identity insert on" and "set identity insert off" - see sample
-- adds support to createIndex for specifying included columns and fill-factors
+- adds support to createIndex for specifying included columns and fill-factor
+- adds support to addPrimaryKey for specifying fill-factor
 
 Usage
 -----
@@ -97,6 +98,21 @@ Extends create index change with includedColumns and fillFactor properties
 <ext:createIndex indexName="IDX_first_name" tableName="person" includedColumns="id, last_name, dob" fillFactor="50">
   <column name="first_name" />
 </ext:createIndex>
+...
+```
+
+### Change: 'addPrimaryKey'
+
+Extends add primary key change with fillFactor property
+
+#### New attribute
+
+*fillFactor* - int (1 to 100) - specifies a percentage that indicates how full the Database Engine should make the leaf level of each index page during index creation or rebuild
+
+#### Sample
+```xml
+...
+<ext:addPrimaryKey columnNames="id" constraintName="pk_mytable_id" tableName="mytable" fillFactor="70" />
 ...
 ```
 
