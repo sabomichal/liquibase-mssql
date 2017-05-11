@@ -11,6 +11,10 @@ import liquibase.structure.core.Index;
 import liquibase.util.StringUtils;
 
 public class AddPrimaryKeyGeneratorMSSQL extends AddPrimaryKeyGenerator {
+  @Override
+  public int getPriority() {
+    return 15;
+  }
 
   /**
    * Conditionally executes to extension's custom Primary Key SQL generation process if statement is the
