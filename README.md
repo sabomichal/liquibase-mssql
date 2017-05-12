@@ -10,6 +10,8 @@ This fork adds following functionality:
 - supports stored procedures drop
 - wraps flagged calls to *loadData* with "set identity insert on" and "set identity insert off" - see sample
 - wraps flagged calls to *insert* with "set identity insert on" and "set identity insert off" - see sample
+- adds support to createIndex for specifying included columns and fill-factor
+- adds support to addPrimaryKey for specifying fill-factor
 
 Usage
 -----
@@ -43,21 +45,21 @@ Extends insert data changeset with identityInsertEnabled property.
     xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
     xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd
     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
-    
+
 	<changeSet id="00000000000001" author="author">
-	
+
 		<createTable tableName="person">
 			<column name="id" autoIncrement="true" type="BIGINT">
 				<constraints nullable="false" primaryKey="true" primaryKeyName="pk_person_id"/>
 			</column>
 			<column name="address" type="varchar(255)"/>
 		</createTable>
-		
+
 		<ext:insert tableName="person" identityInsertEnabled="true">
 			<column name="id" valuenumeric="100" />
 			<column name="address" value="thing" />
 		</ext:insert>
-		
+
 	</changeSet>
 
 </databaseChangeLog>
@@ -82,18 +84,35 @@ Extends load data changeset with identityInsertEnabled property.
 
 ### Change: 'createIndex'
 
-Extends create index change with includedColumns property
+Extends create index change with includedColumns and fillFactor properties
 
 #### New attributes
 
 *includedColumns* - string - columns to be included in index (comma separated if multiple)
 
+*fillFactor* - int (1 to 100) - specifies a percentage that indicates how full the Database Engine should make the leaf level of each index page during index creation or rebuild
+
 #### Sample
 ```xml
 ...
-<ext:createIndex indexName="IDX_first_name" tableName="person" includedColumns="id, last_name, dob">
+<ext:createIndex indexName="IDX_first_name" tableName="person" includedColumns="id, last_name, dob" fillFactor="50">
   <column name="first_name" />
 </ext:createIndex>
+...
+```
+
+### Change: 'addPrimaryKey'
+
+Extends add primary key change with fillFactor property
+
+#### New attribute
+
+*fillFactor* - int (1 to 100) - specifies a percentage that indicates how full the Database Engine should make the leaf level of each index page during index creation or rebuild
+
+#### Sample
+```xml
+...
+<ext:addPrimaryKey columnNames="id" constraintName="pk_mytable_id" tableName="mytable" fillFactor="70" />
 ...
 ```
 

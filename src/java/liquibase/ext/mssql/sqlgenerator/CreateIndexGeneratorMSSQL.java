@@ -21,9 +21,7 @@ public class CreateIndexGeneratorMSSQL extends CreateIndexGenerator {
 
   @Override
   public Sql[] generateSql(CreateIndexStatement statement, Database database, SqlGeneratorChain sqlGeneratorChain) {
-    if (statement instanceof CreateIndexStatementMSSQL &&
-        ((CreateIndexStatementMSSQL)statement).getIncludedColumns() != null &&
-        !((CreateIndexStatementMSSQL)statement).getIncludedColumns().isEmpty()) {
+    if (statement instanceof CreateIndexStatementMSSQL) {
       return generateMSSQLSql((CreateIndexStatementMSSQL)statement, database, sqlGeneratorChain);
     }
 
@@ -54,10 +52,14 @@ public class CreateIndexGeneratorMSSQL extends CreateIndexGenerator {
         builder.append(", ");
       }
     }
-    builder.append(") INCLUDE (");
-    builder.append(database.escapeColumnNameList(statement.getIncludedColumns()));
-    builder.append(") ");
-
+    if (statement.getIncludedColumns() != null && ! statement.getIncludedColumns().isEmpty()) {
+      builder.append(") INCLUDE (");
+      builder.append(database.escapeColumnNameList(statement.getIncludedColumns()));
+    }
+    builder.append(")");
+    if (statement.getFillFactor() != null) {
+      builder.append(" WITH (FILLFACTOR = ").append(statement.getFillFactor()).append(")");
+    }
     // This block simplified, since we know we have MSSQLDatabase
     if (StringUtils.trimToNull(statement.getTablespace()) != null) {
       builder.append(" ON ").append(statement.getTablespace());

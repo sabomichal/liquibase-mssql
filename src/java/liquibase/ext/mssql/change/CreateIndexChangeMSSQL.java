@@ -15,6 +15,8 @@ import java.util.List;
 public class CreateIndexChangeMSSQL extends CreateIndexChange {
   private String includedColumns;
 
+  private Integer fillFactor;
+
   public String getIncludedColumns() {
     return includedColumns;
   }
@@ -23,6 +25,10 @@ public class CreateIndexChangeMSSQL extends CreateIndexChange {
     this.includedColumns = includedColumns;
   }
 
+  public Integer getFillFactor() { return fillFactor; }
+
+  public void setFillFactor(Integer fillFactor) { this.fillFactor = fillFactor; }
+
   @Override
   public SqlStatement[] generateStatements(Database database) {
     SqlStatement[] statements = super.generateStatements(database);
@@ -30,7 +36,7 @@ public class CreateIndexChangeMSSQL extends CreateIndexChange {
     List<SqlStatement> extendedStatements = new ArrayList<SqlStatement>(statements.length);
     for (SqlStatement statement : statements) {
       if (statement instanceof CreateIndexStatement) {
-        extendedStatements.add(new CreateIndexStatementMSSQL((CreateIndexStatement)statement, includedColumns));
+        extendedStatements.add(new CreateIndexStatementMSSQL((CreateIndexStatement)statement, includedColumns, fillFactor));
       } else {
         extendedStatements.add(statement);
       }
