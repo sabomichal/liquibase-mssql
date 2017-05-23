@@ -13,12 +13,12 @@
         <dependency>
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
-            <version>3.4.1</version>
+            <version>3.4.2</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.1</version>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -30,7 +30,9 @@
         <pluginManagement>
             <plugins>
                 <plugin>
+                	<groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
+                    <version>3.6.1</version>
                     <configuration>
                         <source>1.5</source>
                         <target>1.5</target>
@@ -43,7 +45,7 @@
                 <plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-jar-plugin</artifactId>
-					<version>2.4</version>
+					<version>3.0.2</version>
 					<configuration>
 						<archive>
 							<index>true</index>
@@ -59,7 +61,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-source-plugin</artifactId>
-					<version>2.1.2</version>
+					<version>3.0.1</version>
 					<configuration>
 						<archive>
 							<index>true</index>
@@ -75,7 +77,7 @@
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-release-plugin</artifactId>
-					<version>2.2.2</version>
+					<version>2.5.3</version>
 					<configuration>
 						<arguments>-Dgpg.passphrase=${gpg.passphrase}</arguments>
 						<mavenExecutorId>forked-path</mavenExecutorId>
@@ -99,7 +101,7 @@
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.4</version>
+						<version>1.6</version>
 						<configuration>
 							<passphrase>${gpg.passphrase}</passphrase>
 						</configuration>
