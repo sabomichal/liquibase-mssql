@@ -24,6 +24,10 @@ public class CreateIndexStatementMSSQL extends CreateIndexStatement {
         createIndexStatement.getTableSchemaName(), createIndexStatement.getTableName(),
         createIndexStatement.isUnique(), createIndexStatement.getAssociatedWith(),
         createIndexStatement.getColumns());
+    
+    if (createIndexStatement.isClustered() != null) {
+    	setClustered(createIndexStatement.isClustered());
+    }
 
     this.includedColumns = includedColumns;
     this.fillFactor = fillFactor;
