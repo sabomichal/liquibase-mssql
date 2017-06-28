@@ -84,7 +84,7 @@ Extends load data changeset with identityInsertEnabled property.
 
 ### Change: 'createIndex'
 
-Extends create index change with includedColumns and fillFactor properties
+Extends create index change with includedColumns and fillFactor properties. Properties clustered and descending are supported.
 
 #### New attributes
 
