@@ -13,7 +13,7 @@ This fork adds following functionality:
 - adds support to addPrimaryKey for specifying fill-factor
 
 ## Download statistics
-![alt text](http://chart.apis.google.com/chart?cht=lc&chs=800x200&chco=326A9E&chxt=x,y&chtt=Downloads+Over+the+Last+12+Months+For+com.github.sabomichal:liquibase-mssql&chxr=1,0,2007&chds=0,2007&chxs=1N*s*&chls=3&chm=o,0066FF,0,-1,10,0&chd=t:164,196,158,223,187,173,257,455,540,730,1163,2007&chxl=0:|Jun2016|Jul2016|Aug2016|Sep2016|Oct2016|Nov2016|Dec2016|Jan2017|Mar2017|Mar2017|Apr2017|May2017 "Downloads over the last 12 months")
+![alt text](http://chart.apis.google.com/chart?cht=lc&chs=800x200&chco=326A9E&chxt=x,y&chtt=Downloads+Over+the+Last+12+Months+For+com.github.sabomichal:liquibase-mssql&chxr=1,0,2160&chds=0,2160&chxs=1N*s*&chls=3&chm=o,0066FF,0,-1,10,0&chd=t:196,158,223,187,173,257,455,540,730,1163,2007,2160&chxl=0:|Jul2016|Aug2016|Sep2016|Oct2016|Nov2016|Dec2016|Jan2017|Feb2017|Mar2017|Apr2017|May2017|Jun2017 "Downloads over the last 12 months")
 
 ## Usage
 
