@@ -2,7 +2,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.sabomichal</groupId>
     <artifactId>liquibase-mssql</artifactId>
-    <version>1.6.2</version>
+    <version>0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
 	<properties>
@@ -141,7 +141,7 @@
 		<connection>scm:git:https://github.com/sabomichal/liquibase-mssql.git</connection>
 		<developerConnection>scm:git:git@github.com:sabomichal/liquibase-mssql.git</developerConnection>
 		<url>https://github.com/sabomichal/liquibase-mssql</url>
-	  <tag>v1.6.2</tag>
+	  <tag>HEAD</tag>
   </scm>
 
     <developers>
