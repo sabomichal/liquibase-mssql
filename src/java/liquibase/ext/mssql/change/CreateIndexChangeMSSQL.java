@@ -4,6 +4,7 @@ import liquibase.change.ChangeMetaData;
 import liquibase.change.DatabaseChange;
 import liquibase.change.core.CreateIndexChange;
 import liquibase.database.Database;
+import liquibase.ext.mssql.database.MSSQLDatabase;
 import liquibase.ext.mssql.statement.CreateIndexStatementMSSQL;
 import liquibase.statement.SqlStatement;
 import liquibase.statement.core.CreateIndexStatement;
@@ -32,6 +33,9 @@ public class CreateIndexChangeMSSQL extends CreateIndexChange {
   @Override
   public SqlStatement[] generateStatements(Database database) {
     SqlStatement[] statements = super.generateStatements(database);
+    if (!MSSQLDatabase.PRODUCT_NAME.equals(database.getDatabaseProductName())) {
+    	return statements;
+    }
 
     List<SqlStatement> extendedStatements = new ArrayList<SqlStatement>(statements.length);
     for (SqlStatement statement : statements) {

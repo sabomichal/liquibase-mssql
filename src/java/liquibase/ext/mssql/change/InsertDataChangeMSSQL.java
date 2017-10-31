@@ -6,6 +6,7 @@ import java.util.List;
 import liquibase.change.ChangeMetaData;
 import liquibase.change.DatabaseChange;
 import liquibase.database.Database;
+import liquibase.ext.mssql.database.MSSQLDatabase;
 import liquibase.ext.mssql.statement.InsertStatementMSSQL;
 import liquibase.statement.SqlStatement;
 import liquibase.statement.core.InsertStatement;
@@ -25,6 +26,9 @@ public class InsertDataChangeMSSQL extends liquibase.change.core.InsertDataChang
     @Override
     public SqlStatement[] generateStatements(Database database) {
         SqlStatement[] statements = super.generateStatements(database);
+        if (!MSSQLDatabase.PRODUCT_NAME.equals(database.getDatabaseProductName())) {
+        	return statements;
+        }
         List<SqlStatement> wrappedStatements = new ArrayList<SqlStatement>(statements.length);
         for (SqlStatement statement : statements) {
             if (statement instanceof InsertStatement) {
