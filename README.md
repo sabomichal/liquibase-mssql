@@ -2,7 +2,7 @@
 
 # liquibase-mssql
 
-Fork of Liquibase MS SqlServer Extensions extension - https://liquibase.jira.com/wiki/display/CONTRIB/MS+SqlServer+Extensions.
+Fork of Liquibase MS SqlServer Extensions extension - https://liquibase.jira.com/wiki/display/CONTRIB/MS+SqlServer+Extensions. Pull requests welcome.
 
 This fork adds following functionality:
 - it is Liquibase 3.x ready (currently supported version: 3.4.2)
