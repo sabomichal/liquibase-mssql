@@ -12,7 +12,7 @@ import liquibase.statement.core.AddPrimaryKeyStatement;
 import java.util.ArrayList;
 import java.util.List;
 
-@DatabaseChange(name="addPrimaryKey", description = "Adds creates a primary key out of an existing column or set of columns.", priority = ChangeMetaData.PRIORITY_DEFAULT, appliesTo = "column")
+@DatabaseChange(name="addPrimaryKey", description = "Adds creates a primary key out of an existing column or set of columns.", priority = ChangeMetaData.PRIORITY_DATABASE, appliesTo = "column")
 public class AddPrimaryKeyChangeMSSQL extends AddPrimaryKeyChange {
 
   private Integer fillFactor;
