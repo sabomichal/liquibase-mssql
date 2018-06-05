@@ -4,6 +4,7 @@ import liquibase.change.AbstractChange;
 import liquibase.change.ChangeMetaData;
 import liquibase.change.DatabaseChange;
 import liquibase.database.Database;
+import liquibase.ext.mssql.database.MSSQLDatabase;
 import liquibase.ext.mssql.statement.DropStoredProcedureStatement;
 import liquibase.statement.SqlStatement;
 
@@ -44,5 +45,10 @@ public class DropStoredProcedureChange extends AbstractChange {
     public void setSchemaName(String schemaName)
     {
         this.schemaName = schemaName;
+    }
+
+    @Override
+    public boolean supports(Database database) {
+        return database instanceof MSSQLDatabase;
     }
 }

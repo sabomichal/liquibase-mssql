@@ -1,6 +1,7 @@
 package liquibase.ext.mssql.sqlgenerator;
 
 import liquibase.database.Database;
+import liquibase.ext.mssql.database.MSSQLDatabase;
 import liquibase.ext.mssql.statement.AddPrimaryKeyStatementMSSQL;
 import liquibase.sql.Sql;
 import liquibase.sql.UnparsedSql;
@@ -75,4 +76,10 @@ public class AddPrimaryKeyGeneratorMSSQL extends AddPrimaryKeyGenerator {
         new UnparsedSql(sql, getAffectedPrimaryKey(statement))
     };
   }
+
+  @Override
+  public boolean supports(AddPrimaryKeyStatement statement, Database database) {
+    return database instanceof MSSQLDatabase;
+  }
+
 }

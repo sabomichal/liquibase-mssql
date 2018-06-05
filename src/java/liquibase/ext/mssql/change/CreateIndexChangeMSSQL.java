@@ -48,4 +48,9 @@ public class CreateIndexChangeMSSQL extends CreateIndexChange {
 
     return extendedStatements.toArray(new SqlStatement[0]);
   }
+
+  @Override
+  public boolean supports(Database database) {
+    return database instanceof MSSQLDatabase;
+  }
 }
