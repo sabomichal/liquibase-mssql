@@ -39,4 +39,9 @@ public class InsertDataChangeMSSQL extends liquibase.change.core.InsertDataChang
         }
         return wrappedStatements.toArray(new SqlStatement[0]);
     }
+
+    @Override
+    public boolean supports(Database database) {
+        return database instanceof MSSQLDatabase;
+    }
 }
