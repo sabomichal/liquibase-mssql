@@ -3,7 +3,6 @@ package liquibase.ext.mssql.sqlgenerator;
 import liquibase.database.Database;
 import liquibase.database.DatabaseFactory;
 import liquibase.database.OfflineConnection;
-import liquibase.database.core.MSSQLDatabase;
 import liquibase.exception.DatabaseException;
 import liquibase.ext.mssql.statement.InsertStatementMSSQL;
 import liquibase.sql.Sql;

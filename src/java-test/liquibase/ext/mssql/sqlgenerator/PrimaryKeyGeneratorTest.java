@@ -4,7 +4,6 @@ import liquibase.database.Database;
 import liquibase.database.DatabaseFactory;
 import liquibase.database.OfflineConnection;
 import liquibase.exception.DatabaseException;
-import liquibase.ext.mssql.database.MSSQLDatabase;
 import liquibase.ext.mssql.statement.AddPrimaryKeyStatementMSSQL;
 import liquibase.sql.Sql;
 import liquibase.sqlgenerator.SqlGeneratorFactory;
